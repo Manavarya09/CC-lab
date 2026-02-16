@@ -436,14 +436,16 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "q2.l"
-#line 2 "q2.l"
+#line 1 "q3.l"
+#line 2 "q3.l"
 #include<stdio.h>
+#include<string.h>
+
 int chars = 0;
 int words = 0;
 int lines = 0;
-#line 446 "lex.yy.c"
-#line 447 "lex.yy.c"
+#line 448 "lex.yy.c"
+#line 449 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -660,9 +662,9 @@ YY_DECL
 		}
 
 	{
-#line 8 "q2.l"
+#line 10 "q3.l"
 
-#line 666 "lex.yy.c"
+#line 668 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -721,26 +723,32 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 9 "q2.l"
-{ words++; chars += strlen(yytext); }
+#line 11 "q3.l"
+{
+                if(strlen(yytext) >= 6)
+                {
+                    words++;
+                    chars += strlen(yytext);
+                }
+           }
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 10 "q2.l"
-{ chars++; lines++; }
+#line 19 "q3.l"
+{ lines++; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 11 "q2.l"
-{ chars++; }
+#line 21 "q3.l"
+{ }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 12 "q2.l"
+#line 22 "q3.l"
 ECHO;
 	YY_BREAK
-#line 744 "lex.yy.c"
+#line 752 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1745,13 +1753,14 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 12 "q2.l"
+#line 22 "q3.l"
 
 
 int main()
 {
     yylex();
-    printf(" Number of lines=%d\n Number of words=%d\n Number of characters=%d\n",
-           lines, words, chars);
+    printf("Number of lines = %d\n", lines);
+    printf("Number of words (length >=6) = %d\n", words);
+    printf("Number of characters (from those words) = %d\n", chars);
     return 0;
 }
